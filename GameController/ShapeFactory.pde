@@ -1,10 +1,16 @@
 class ShapeFactory {
+  PShape basicBullet;
   PShape basicPlayer;
   PShape basicEnemy;
 
   ShapeFactory() {
+    buildBasicBullet();
     buildBasicEnemy();
     buildBasicPlayer();
+  }
+  
+  PShape getBasicBullet() {
+    return basicBullet;
   }
 
   PShape getBasicPlayer() {
@@ -14,7 +20,11 @@ class ShapeFactory {
   PShape getBasicEnemy() {
     return basicEnemy;
   }
-
+  
+  void buildBasicBullet() {
+    PShape bullet = createShape(ELLIPSE, -5, -7.5, 10, 15);
+  }
+  
   void buildBasicPlayer() {
     basicPlayer = createShape(GROUP);
     PShape chassis = createShape();
