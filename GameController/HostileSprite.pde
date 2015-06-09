@@ -4,7 +4,9 @@ class HostileSprite extends AbstractSprite {
   long fireDelay;
   
   HostileSprite(int team, int radius, PShape graphic, PVector position, PVector velocity) {
-    
+    super(position, velocity);
+    this.team = team;
+    create(graphic, radius); 
   }
   
   void fire(PVector projectileVelocity) {
@@ -16,6 +18,6 @@ class HostileSprite extends AbstractSprite {
   }
   
   boolean readyToFire() {
-    
+    return true;
   }
 }

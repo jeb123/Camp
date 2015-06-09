@@ -1,8 +1,8 @@
 class ProjectileSprite extends AbstractSprite {
   HostileSprite shooter;
 
-  ProjectileSprite(HostileSprite shooter, int radius, PShape graphic, PShape position, PVector velocity) {
-    
+  ProjectileSprite(HostileSprite shooter, int radius, PShape graphic, PVector position, PVector velocity) {
+    super(position, velocity);
   }
 
   @Override
