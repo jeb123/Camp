@@ -1,6 +1,6 @@
 interface Level {
   void advance();
-  void levelsetup();
+  void levelSetup();
   void levelDraw();
   boolean levelIsComplete();
 }

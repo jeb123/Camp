@@ -72,11 +72,13 @@ class ShapeFactory {
   }
   
   void buildBasicEnemy() {
-    basicEnemyRadius = 30;
+    basicEnemyRadius = 40;
     basicEnemy = createShape(GROUP);
     PShape chassis = createShape();
+    chassis.setStroke(color(#A0D2D3));
+    chassis.setStrokeWeight(2);
     chassis.beginShape();
-    chassis.fill(#14FF00);
+    chassis.fill(#176A12);
     chassis.vertex(-30, -15);
     chassis.vertex(30, -15);
     chassis.vertex(40, 20);
@@ -84,6 +86,9 @@ class ShapeFactory {
     chassis.vertex(-30, -15);
     chassis.endShape();
     PShape cockpit = createShape(ELLIPSE, -10, -15, 20, 30);
+    cockpit.setStroke(color(#F2572C));
+    cockpit.setStrokeWeight(4);
+    cockpit.setFill(color(#00FF63));
     basicEnemy.addChild(chassis);
     basicEnemy.addChild(cockpit);
   }
