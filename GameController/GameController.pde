@@ -1,3 +1,7 @@
+
+/**
+ * GLOBAL VARIABLES
+ */
 final int playersTeam = 1;
 final int enemiesTeam = 2;
 int playerLives = 3;
@@ -17,6 +21,9 @@ HostileSprite player;
 float playerControllerLine;
 PShape lifeIcon;
 
+/**
+ * SETUP - INITIALIZE, RUNS ONCE
+ */
 void setup() {
   size(displayWidth, displayHeight, P2D);
   noCursor();
@@ -35,75 +42,84 @@ void setup() {
   currentLevel = levels.get(0);
 }
 
+/**
+ * DRAW - THE MAIN DRAWING LOOP REPEATS EVERY FRAME
+ */
 void draw() {
-  background(#00041C);
+  background(25);
   showPlayerLives();
-  if (playerLives == 0) {
+  if(playerLives == 0) {
     endGame("lose");
   }
   currentLevel.levelDraw();
   if (!lockedControls) {
     controlPlayer();
   }
+  //update all sprite positions on screen
   for (int i = 0; i < sprites.size (); i++) {
     sprites.get(i).updateAndDisplay();
   }
 }
 
-void showPlayerLives() {
-  for (int i = 0; i < playerLives; i++) {
-    shape(lifeIcon, 60 + i * 100, height - 40);
-  }
+/**
+ * FULL SCREEN MODE
+ */
+boolean sketchFullScreen() {
+  return true;
 }
 
-void endGame(String condition) {
-  if (condition.equals("lose")) {
-    cursor();
-    textAlign(CENTER);
-    textSize(48);
-    text("Game Over", width/2, height/2);
-    noLoop();
-  } else if (condition.equals("win")) {
-    cursor();
-    textAlign(CENTER);
-    textSize(48);
-    text("You Beat the Game", width/2, height/2);
-    noLoop();
-  }
-}
-
-
+/**
+ * SPAWN A NEW PLAYER
+ */
 HostileSprite spawnPlayer() {
   PVector startingPosition = new PVector(0.5 * width, 0.85 * height);
   PVector initialVelocity = new PVector(0, 0);
   PShape graphic = factory.getBasicPlayer();
-  int radius = 40;
+  int radius = factory.getBasicPlayerRadius();
   return new HostileSprite(playersTeam, radius, graphic, startingPosition, initialVelocity);
 }
 
+/**
+ * CONTROLS PLAYER MOVEMENT
+ */
 void controlPlayer() {
-  if (keys[0]) {
-    player.position.x -= playerSpeedLimit;
+  if (keys[0]) { //LEFT
+    if (isLeftBound(player))
+      player.position.x = 2 * player.radius;
+    else
+      player.position.x -= playerSpeedLimit;
   }
-  if (keys[1]) {
-    player.position.x += playerSpeedLimit;
+  if (keys[1]) { //RIGHT
+    if (isRightBound(player)) {
+      player.position.x = width - 2 * player.radius;
+    } else {
+      player.position.x += playerSpeedLimit;
+    }
   }
-  if (keys[2]) {
+  if (keys[2]) { //F
     player.fire(new PVector(0, -10));
   }
 }
 
+/**
+ * KEYS ARE DOWN
+ */
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == LEFT)
       keys[0] = true;
     if (keyCode == RIGHT)
       keys[1] = true;
+    if (keyCode == 61440) //printScreen
+      saveFrame("data/" + System.currentTimeMillis() + ".jpg");
   }
-  if (key == 'f' || key == 'F')
+  if (key == 'f' || key == 'F' || key == ' ')
     keys[2] = true;
 }
 
+/**
+ * KEYS ARE UP
+ */
 void keyReleased() {
   if (key == CODED) {
     if (keyCode == LEFT)
@@ -112,9 +128,10 @@ void keyReleased() {
       keys[1] = false;
   }
   if (key == 'f' || key == 'F')
-    keys [2] = false;
+    keys[2] = false;
 }
 
+//object is bound by left edge of screen
 boolean isLeftBound(AbstractSprite sprite) {
   int leftBoundary = 2 * sprite.radius;
   if (sprite.position.x <= leftBoundary)
@@ -123,6 +140,7 @@ boolean isLeftBound(AbstractSprite sprite) {
     return false;
 }
 
+//object is bound by right edge of screen
 boolean isRightBound(AbstractSprite sprite) {
   int rightBoundary = width - 2 * sprite.radius;
   if (sprite.position.x >= rightBoundary)
@@ -130,4 +148,29 @@ boolean isRightBound(AbstractSprite sprite) {
   else
     return false;
 }
+
+//shows player lives in bottom left corner
+void showPlayerLives() {
+  for (int i = 0; i < playerLives; i++) {
+    shape(lifeIcon, 60 + i * 100, height - 40);
+  }
+}
+
+//ends the game!
+void endGame(String condition) {
+  if(condition.equals("lose")) {
+    cursor();
+    textAlign(CENTER);
+    textSize(48);
+    text("Game Over", width/2, height/2);
+    noLoop();
+  } else if(condition.equals("win")) {
+    cursor();
+    textAlign(CENTER);
+    textSize(48);
+    text("You Beat the Game", width/2, height/2);
+    noLoop();    
+  }
+}
+
 
