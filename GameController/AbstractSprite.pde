@@ -32,7 +32,14 @@ abstract class AbstractSprite implements Sprite {
     display();
   }
 
-boolean isColliding(ProjectileSprite projectile, HostileSprite hostile) {
-  return false;
+  boolean isColliding(ProjectileSprite projectile, HostileSprite hostile) {
+    float dx = projectile.position.x - hostile.position.x;
+    float dy = projectile.position.y - hostile.position.y;
+    float rr = projectile.radius + hostile.radius;
+    if (dx * dx + dy * dy < rr * rr)
+      return true;
+    else
+      return false;
   }
 }
+
