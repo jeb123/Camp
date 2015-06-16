@@ -1,11 +1,11 @@
 PImage img;
 PFont font;
 void setup() {
-  img = loadImage("therock.png");
+  img = loadImage("cat.png");
   size(img.width, img.height);
   font = loadFont("Chiller-Regular-48.vlw");
   textFont(font, 100);
-  textAlign(RIGHT);
+  textAlign(CENTER);
   fill(0);
   
 }
@@ -13,7 +13,10 @@ void setup() {
 void draw() {
   background(255);
   image(img, 0, 0);
-  text("ROCK", width/2, height-100);
+  text("CAT", width/2, height-75);
+  float v = mouseY / (float)height;
+  filter(INVERT);
+  filter(THRESHOLD, v);
 }
 
 void keyPressed() {
