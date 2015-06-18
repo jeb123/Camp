@@ -3,7 +3,7 @@ PImage background;
 
 void setup() {
   foreground = loadImage("guy.jpg");
-  background = loadImage("space.png");
+  background = loadImage("goat.jpg");
   GreenScreen gs = new GreenScreen(foreground, background);
   ImageTool.matchWidth(background, foreground);
   //ImageTool.matchHeight(foreground, background);
