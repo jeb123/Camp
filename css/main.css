@@ -1,0 +1,16 @@
+body {
+background: url("../img/banderas.gif") no-repeat center center fixed;
+background-size: cover;
+margin: 0;
+}
+
+img {
+max-width: 50%;
+float: center
+}
+
+.container {
+	max-width: 800px;
+	margin-right: auto;
+	margin-left: auto:
+}
