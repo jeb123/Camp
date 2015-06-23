@@ -1,15 +1,21 @@
 body {
-background: url("../img/banderas.gif") no-repeat center center fixed;
+background: url("../img/celebrate.gif") no-repeat center center fixed;
 background-size: cover;
 margin: 0;
+color: white;
+text-align: center;
 }
 
 img {
-max-width: 50%;
-float: center
+width: 50%;
+display: block;
+margin-left: auto;
+margin-right: auto;
 }
 
-.container {
+
+.main {
+background-color#FFF
 	max-width: 800px;
 	margin-right: auto;
 	margin-left: auto:
