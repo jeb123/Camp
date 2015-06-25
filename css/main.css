@@ -13,6 +13,15 @@ margin-left: auto;
 margin-right: auto;
 }
 
+.menu-bar {
+background-color: black;
+color: white;
+}
+
+.menu-bar nav a{
+max-width: 800px;
+}
+
 
 
 .main {
